@@ -65,30 +65,11 @@ class _HomeState extends State<Home> {
           child: Container(
         child: Column(
           children: [
-            Padding(
-              padding: EdgeInsets.only(left: 20.w, right: 20.w),
-              child: TextFormField(
-                readOnly: true,
-                decoration: InputDecoration(
-                  fillColor: Colors.white,
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(0)),
-                      borderSide: BorderSide(color: Colors.blue)),
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(0)),
-                      borderSide: BorderSide(color: Colors.grey)),
-                  hintText: "Search products here",
-                  hintStyle: TextStyle(fontSize: 15.sp),
-                ),
-                onTap: () => Navigator.push(context,
-                    CupertinoPageRoute(builder: (_) => SearchScreen())),
-              ),
-            ),
             SizedBox(
               height: 10.h,
             ),
             AspectRatio(
-              aspectRatio: 3.5,
+              aspectRatio: 6,
               child: CarouselSlider(
                   items: _carouselImages
                       .map((item) => Padding(
@@ -102,7 +83,7 @@ class _HomeState extends State<Home> {
                           ))
                       .toList(),
                   options: CarouselOptions(
-                      autoPlay: false,
+                      autoPlay: true,
                       enlargeCenterPage: true,
                       viewportFraction: 0.8,
                       enlargeStrategy: CenterPageEnlargeStrategy.height,
@@ -132,13 +113,17 @@ class _HomeState extends State<Home> {
             ),
             Expanded(
               child: GridView.builder(
-                  scrollDirection: Axis.horizontal,
+                  scrollDirection: Axis.vertical,
                   itemCount: _products.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2, childAspectRatio: 1),
                   itemBuilder: (_, index) {
                     return GestureDetector(
-                      onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (_)=>ProductDetails(_products[index]))),
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) =>
+                                  ProductDetails(_products[index]))),
                       child: Card(
                         elevation: 3,
                         child: Column(
@@ -148,7 +133,8 @@ class _HomeState extends State<Home> {
                                 child: Container(
                                     color: Colors.yellow,
                                     child: Image.network(
-                                      _products[index]["product-img"][0],
+                                      _products[index]["product-img"],
+                                      scale: 1,
                                     ))),
                             Text("${_products[index]["product-name"]}"),
                             Text(

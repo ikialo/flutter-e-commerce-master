@@ -6,14 +6,14 @@ import 'package:flutter_ecommerce/const/AppColors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductDetails extends StatefulWidget {
-  var _product;
+  final _product;
+
   ProductDetails(this._product);
   @override
   _ProductDetailsState createState() => _ProductDetailsState();
 }
 
 class _ProductDetailsState extends State<ProductDetails> {
-
   Future addToCart() async {
     final FirebaseAuth _auth = FirebaseAuth.instance;
     var currentUser = _auth.currentUser;
@@ -34,7 +34,7 @@ class _ProductDetailsState extends State<ProductDetails> {
     final FirebaseAuth _auth = FirebaseAuth.instance;
     var currentUser = _auth.currentUser;
     CollectionReference _collectionRef =
-    FirebaseFirestore.instance.collection("users-favourite-items");
+        FirebaseFirestore.instance.collection("users-favourite-items");
     return _collectionRef
         .doc(currentUser!.email)
         .collection("items")
@@ -66,10 +66,14 @@ class _ProductDetailsState extends State<ProductDetails> {
         ),
         actions: [
           StreamBuilder(
-            stream: FirebaseFirestore.instance.collection("users-favourite-items").doc(FirebaseAuth.instance.currentUser!.email)
-                .collection("items").where("name",isEqualTo: widget._product['product-name']).snapshots(),
-            builder: (BuildContext context, AsyncSnapshot snapshot){
-              if(snapshot.data==null){
+            stream: FirebaseFirestore.instance
+                .collection("users-favourite-items")
+                .doc(FirebaseAuth.instance.currentUser!.email)
+                .collection("items")
+                .where("name", isEqualTo: widget._product['product-name'])
+                .snapshots(),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.data == null) {
                 return Text("");
               }
               return Padding(
@@ -77,19 +81,22 @@ class _ProductDetailsState extends State<ProductDetails> {
                 child: CircleAvatar(
                   backgroundColor: Colors.red,
                   child: IconButton(
-                    onPressed: () => snapshot.data.docs.length==0?addToFavourite():print("Already Added"),
-                    icon: snapshot.data.docs.length==0? Icon(
-                      Icons.favorite_outline,
-                      color: Colors.white,
-                    ):Icon(
-                      Icons.favorite,
-                      color: Colors.white,
-                    ),
+                    onPressed: () => snapshot.data.docs.length == 0
+                        ? addToFavourite()
+                        : print("Already Added"),
+                    icon: snapshot.data.docs.length == 0
+                        ? Icon(
+                            Icons.favorite_outline,
+                            color: Colors.white,
+                          )
+                        : Icon(
+                            Icons.favorite,
+                            color: Colors.white,
+                          ),
                   ),
                 ),
               );
             },
-
           ),
         ],
       ),
@@ -99,29 +106,39 @@ class _ProductDetailsState extends State<ProductDetails> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // AspectRatio(
+            //   aspectRatio: 3.5,
+            //   child: CarouselSlider(
+            //       items: widget._product['product-img']
+            //           .map<Widget>((item) => Padding(
+            //                 padding: const EdgeInsets.only(left: 3, right: 3),
+            //                 child: Container(
+            //                   decoration: BoxDecoration(
+            //                       image: DecorationImage(
+            //                           image: NetworkImage(item),
+            //                           fit: BoxFit.fitWidth)),
+            //                 ),
+            //               ))
+            //           .toList(),
+            //       options: CarouselOptions(
+            //           autoPlay: false,
+            //           enlargeCenterPage: true,
+            //           viewportFraction: 0.8,
+            //           enlargeStrategy: CenterPageEnlargeStrategy.height,
+            //           onPageChanged: (val, carouselPageChangedReason) {
+            //             setState(() {});
+            //           })),
+            // ),
+
             AspectRatio(
-              aspectRatio: 3.5,
-              child: CarouselSlider(
-                  items: widget._product['product-img']
-                      .map<Widget>((item) => Padding(
-                            padding: const EdgeInsets.only(left: 3, right: 3),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image: NetworkImage(item),
-                                      fit: BoxFit.fitWidth)),
-                            ),
-                          ))
-                      .toList(),
-                  options: CarouselOptions(
-                      autoPlay: false,
-                      enlargeCenterPage: true,
-                      viewportFraction: 0.8,
-                      enlargeStrategy: CenterPageEnlargeStrategy.height,
-                      onPageChanged: (val, carouselPageChangedReason) {
-                        setState(() {});
-                      })),
-            ),
+                aspectRatio: 2,
+                child: Container(
+                    color: Colors.yellow,
+                    child: Image.network(
+                      widget._product["product-img"],
+                      scale: 1,
+                    ))),
+
             Text(
               widget._product['product-name'],
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
