@@ -139,6 +139,8 @@ class _HomeState extends State<Home> {
                             Text("${_products[index]["product-name"]}"),
                             Text(
                                 "${_products[index]["product-price"].toString()}"),
+                            Text(
+                                "${_products[index]["product-description"].toString()}"),
                           ],
                         ),
                       ),
