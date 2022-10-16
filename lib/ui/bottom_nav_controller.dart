@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/const/AppColors.dart';
 import 'package:flutter_ecommerce/ui/bottom_nav_pages/cart.dart';
@@ -13,11 +14,13 @@ class BottomNavController extends StatefulWidget {
 class _BottomNavControllerState extends State<BottomNavController> {
   final _pages = [
     Home(),
-    Favourite(),
+    // Favourite(),
     Cart(),
     Profile(),
   ];
   var _currentIndex = 0;
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +29,7 @@ class _BottomNavControllerState extends State<BottomNavController> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: Text(
-          "E-Commerce",
+          "Market",
           style: TextStyle(color: Colors.black),
         ),
         centerTitle: true,
@@ -45,15 +48,15 @@ class _BottomNavControllerState extends State<BottomNavController> {
             icon: Icon(Icons.home),
             label: "Home"
           ),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.favorite_outline), label: "Favourite"),
+          // BottomNavigationBarItem(
+          //     icon: Icon(Icons.favorite_outline), label: "Favourite"),
           BottomNavigationBarItem(
             icon: Icon(Icons.add_shopping_cart),
             label: "Cart",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            label: "Person",
+            label: "Profile",
           ),
         ],
         onTap: (index) {

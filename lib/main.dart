@@ -54,7 +54,7 @@ class _MyAppState extends State<MyApp> {
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
-          home: LoggedIn ? BottomNavController() : LoginScreen(),
+          home: LoggedIn ? BottomNavController() : SplashScreen(),
         );
       },
     );

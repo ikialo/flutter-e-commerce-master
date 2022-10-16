@@ -69,7 +69,7 @@ class _HomeState extends State<Home> {
               height: 10.h,
             ),
             AspectRatio(
-              aspectRatio: 6,
+              aspectRatio: 5,
               child: CarouselSlider(
                   items: _carouselImages
                       .map((item) => Padding(
@@ -129,12 +129,12 @@ class _HomeState extends State<Home> {
                         child: Column(
                           children: [
                             AspectRatio(
-                                aspectRatio: 2,
+                                aspectRatio: 1.5,
                                 child: Container(
                                     color: Colors.yellow,
                                     child: Image.network(
                                       _products[index]["product-img"],
-                                      scale: 1,
+                                      scale: 1.5,
                                     ))),
                             Text("${_products[index]["product-name"]}"),
                             Text(
@@ -143,6 +143,7 @@ class _HomeState extends State<Home> {
                                 "${_products[index]["product-description"].toString()}"),
                           ],
                         ),
+                        
                       ),
                     );
                   }),

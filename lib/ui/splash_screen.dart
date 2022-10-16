@@ -28,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                "E-Commerce",
+                "iKialo",
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
